@@ -17,16 +17,10 @@ var ac = new AudioContext();
 var gain = ac.createGain();
 gain.gain.value = 0;
 gain.connect(ac.destination);
-var os = [];
-for (var i=0; i<256; i++) {
-  var o = ac.createOscillator();
-  //o.type = ['sine','sawtooth','triangle','square'][~~(Math.random()*3)];
-  o.type = 'sawtooth';
-  //o.connect(gain);
-  o.start(0);
-  o.connect(gain);
-  os.push(o)
-}
+
+var l = 0.0;
+var n = ac.createScriptProcessor(4096, 1, 1);
+n.connect(gain);
 
 var t=0;
 setInterval(function() {
@@ -44,15 +38,15 @@ setInterval(function() {
     if (i < .05) {
       //c2.fillText('𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 180);
       c2.fillText(decodeURI('%F0%9D%9F%A6%20%F0%9D%9F%AA%20%F0%9D%9F%A3%F0%9D%9F%A7%20%F0%9D%9F%A3%F0%9D%9F%A8%20%F0%9D%9F%A4%F0%9D%9F%A5%20%F0%9D%9F%A6%F0%9D%9F%A4'), 50, 180);
-      t=2;
+      t=3;
     } else if (i < .9) {
       //c2.fillText('✪🅼🅰🅶🅸🅲✪', 0, 180,w);
       c2.fillText(decodeURI('%E2%9C%AA%F0%9F%85%BC%F0%9F%85%B0%F0%9F%85%B6%F0%9F%85%B8%F0%9F%85%B2%E2%9C%AA'), 50, 180);
-      t=0;
-    } else {
-      c2.fillText('✪🅼🅼🅲🅼🅺★', 0, 180);
-      //c2.fillText(decodeURI('%E2%9C%AA%F0%9F%85%BC%F0%9F%85%BC%F0%9F%85%B2%F0%9F%85%BC%F0%9F%85%BA%E2%98%85'), 50, 180);
       t=1;
+    } else {
+      //c2.fillText('✪🅼🅼🅲🅼🅺★', 0, 180);
+      c2.fillText(decodeURI('%E2%9C%AA%F0%9F%85%BC%F0%9F%85%BC%F0%9F%85%B2%F0%9F%85%BC%F0%9F%85%BA%E2%98%85'), 50, 180);
+      t=2;
     }
     return canvas.toDataURL('image/jpeg');
   }
@@ -76,16 +70,20 @@ setInterval(function() {
     img.src = imageData;
   }
 
-  gain.gain.value = f/512;
-  //gain.gain.value = 0.8;
+  gain.gain.value = f;
+  n.onaudioprocess = function(e) {
+    var output = e.outputBuffer.getChannelData(0);
+    for (var i = 0; i < 4096; i++) {
+      var white = Math.random() * (2*t) - 1;
+      output[i] = (l + (0.02 * white)) / 1.02;
+      l = output[i];
+      //output[i] *= 3.5;
+    }
+  };
 
 
   if (Math.random() < f) {
     drawImage(glitchImage(generateVirtualImage()));
-    os.forEach(function(o) {
-      o.frequency.value = 100+~~(Math.random()*20000 + t*1000);
-  //    o.frequency.value = 2000+~~(Math.random()*4000 + t*2000);
-    });
 
     if (f < 0.45) {
       f *= 2;
