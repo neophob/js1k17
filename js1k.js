@@ -52,10 +52,22 @@ setInterval(function() {
     return 'data:image/jpeg;base64,' + btoa(arr.join(''))
   }
 
-  function drawImage(imageData, pos) {
+  gain.gain.value = f;
+  n.onaudioprocess = function(e) {
+    var output = e.outputBuffer.getChannelData(0);
+    for (var i = 0; i < 4096; i++) {
+      var white = Math.random() * (2*t) - 1;
+      output[i] = (l + (.02 * white)) / 1.02;
+      l = output[i];
+      //output[i] *= 3.5;
+    }
+  };
+
+
+  if (Math.random() < f) {
+    //drawImage(glitchImage(generateVirtualImage()), 200);//(h-200)/2);
     var img = new Image();
     img.onload = function() {
-
 
       //DRAW BACKGROUND IMAGE START
       for (var i = 0; i < 7; i++) {
@@ -73,25 +85,11 @@ setInterval(function() {
       }
       //DRAW BACKGROUND IMAGE END
 
-      c.drawImage(this, 0, pos);
+      c.drawImage(this, 0, 200);
     };
-    img.src = imageData;
-  }
-
-  gain.gain.value = f;
-  n.onaudioprocess = function(e) {
-    var output = e.outputBuffer.getChannelData(0);
-    for (var i = 0; i < 4096; i++) {
-      var white = Math.random() * (2*t) - 1;
-      output[i] = (l + (.02 * white)) / 1.02;
-      l = output[i];
-      //output[i] *= 3.5;
-    }
-  };
+    img.src = glitchImage(generateVirtualImage());
 
 
-  if (Math.random() < f) {
-    drawImage(glitchImage(generateVirtualImage()), 200);//(h-200)/2);
 
     if (f < 0.45) {
       f *= 2;
