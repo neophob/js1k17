@@ -52,26 +52,27 @@ setInterval(function() {
     return 'data:image/jpeg;base64,' + btoa(arr.join(''))
   }
 
-  function testImage() {
-    for (var i = 0; i < 7; i++) {
-      //white, yellow, cyan, green, magenta, red, blue
-      c.fillStyle = '#'+['fff', 'ff0', '0ff', '0f0', 'f0f', 'f00', '00f'][i];
-      c.fillRect(0.143*i*w, 0, w, h);
-
-      //blue, black, magenta, black, cyan, black, white
-      c.fillStyle = '#'+['00f', '000', 'f0f', '000', '0ff', '000', 'eee'][i];
-      c.fillRect(0.143*i*w, h*.7, w, h);
-
-      //greyscale
-      c.fillStyle = '#'+['000', '222', '444', '666', '888', 'aaa', 'ccc'][i];
-      c.fillRect(0.143*i*w, h*.75, w, h);
-    }
-  }
-
   function drawImage(imageData, pos) {
     var img = new Image();
     img.onload = function() {
-      testImage();
+
+
+      //DRAW BACKGROUND IMAGE START
+      for (var i = 0; i < 7; i++) {
+        //white, yellow, cyan, green, magenta, red, blue
+        c.fillStyle = '#'+['fff', 'ff0', '0ff', '0f0', 'f0f', 'f00', '00f'][i];
+        c.fillRect(0.143*i*w, 0, w, h);
+
+        //blue, black, magenta, black, cyan, black, white
+        c.fillStyle = '#'+['00f', '000', 'f0f', '000', '0ff', '000', 'eee'][i];
+        c.fillRect(0.143*i*w, h*.7, w, h);
+
+        //greyscale
+        c.fillStyle = '#'+['000', '222', '444', '666', '888', 'aaa', 'ccc'][i];
+        c.fillRect(0.143*i*w, h*.75, w, h);
+      }
+      //DRAW BACKGROUND IMAGE END
+
       c.drawImage(this, 0, pos);
     };
     img.src = imageData;
