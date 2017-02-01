@@ -6,24 +6,22 @@ z.addColorStop(1, '#fff');
 //glitch factor
 f = 1;
 
-var ac = new AudioContext();
-var gain = ac.createGain();
+ac = new AudioContext();
+gain = ac.createGain();
 gain.gain.value = 0;
 gain.connect(ac.destination);
 
-var l = 0.0;
-var n = ac.createScriptProcessor(4096, 1, 1);
+l = 0.0;
+n = ac.createScriptProcessor(4096, 1, 1);
 n.connect(gain);
 
 setInterval(function() {
   var t=0;
-  var w = a.width;
-  var h = a.height;
 
   function generateVirtualImage() {
     var canvas = document.createElement('canvas');
-    canvas.width = w;
-    canvas.height = 200;
+    canvas.width = a.width;
+    canvas.height = 240;
     var c2 = canvas.getContext('2d');
     c2.fillStyle = z;
     c2.font = '160px Arial';
@@ -52,6 +50,31 @@ setInterval(function() {
     return 'data:image/jpeg;base64,' + btoa(arr.join(''))
   }
 
+  function drawImage(imageData, pos) {
+    var img = new Image();
+    img.onload = function() {
+
+      //DRAW BACKGROUND IMAGE START - must by sync with glitch image to prevent flickering
+      for (var i = 0; i < 7; i++) {
+        //white, yellow, cyan, green, magenta, red, blue
+        c.fillStyle = '#'+['fff', 'ff0', '0ff', '0f0', 'f0f', 'f00', '00f'][i];
+        c.fillRect(0.143*i*a.width, 0, a.width, a.height);
+
+        //blue, black, magenta, black, cyan, black, white
+        c.fillStyle = '#'+['00f', '000', 'f0f', '000', '0ff', '000', 'eee'][i];
+        c.fillRect(0.143*i*a.width, a.height*.75, a.width, a.height);
+
+        //greyscale
+        c.fillStyle = '#'+['000', '222', '444', '666', '888', 'aaa', 'ccc'][i];
+        c.fillRect(0.143*i*a.width, a.height*.8, a.width, a.height);
+      }
+      //DRAW BACKGROUND IMAGE END
+
+      c.drawImage(this, 0, pos);
+    };
+    img.src = imageData;
+  }
+
   gain.gain.value = f;
   n.onaudioprocess = function(e) {
     var output = e.outputBuffer.getChannelData(0);
@@ -65,32 +88,7 @@ setInterval(function() {
 
 
   if (Math.random() < f) {
-    //drawImage(glitchImage(generateVirtualImage()), 200);//(h-200)/2);
-    var img = new Image();
-    img.onload = function() {
-
-      //DRAW BACKGROUND IMAGE START
-      for (var i = 0; i < 7; i++) {
-        //white, yellow, cyan, green, magenta, red, blue
-        c.fillStyle = '#'+['fff', 'ff0', '0ff', '0f0', 'f0f', 'f00', '00f'][i];
-        c.fillRect(0.143*i*w, 0, w, h);
-
-        //blue, black, magenta, black, cyan, black, white
-        c.fillStyle = '#'+['00f', '000', 'f0f', '000', '0ff', '000', 'eee'][i];
-        c.fillRect(0.143*i*w, h*.7, w, h);
-
-        //greyscale
-        c.fillStyle = '#'+['000', '222', '444', '666', '888', 'aaa', 'ccc'][i];
-        c.fillRect(0.143*i*w, h*.75, w, h);
-      }
-      //DRAW BACKGROUND IMAGE END
-
-      c.drawImage(this, 0, 200);
-    };
-    img.src = glitchImage(generateVirtualImage());
-
-
-
+    drawImage(glitchImage(generateVirtualImage()), 100);//(a.height-240)/3);
     if (f < 0.45) {
       f *= 2;
     }
