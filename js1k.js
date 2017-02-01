@@ -1,14 +1,7 @@
-w = a.width;
-h = a.height;
-
 //logo filler gradient
 z = c.createLinearGradient(0, 0, 0, 200);
 z.addColorStop(0, '#000');
 z.addColorStop(1, '#fff');
-
-c.rect(0, 0, w, h);
-c.fillStyle = 0;
-c.fill();
 
 //glitch factor
 f = 1;
@@ -16,36 +9,35 @@ f = 1;
 var ac = new AudioContext();
 var gain = ac.createGain();
 gain.gain.value = 0;
-gain.connect(ac.destination);
+//gain.connect(ac.destination);
 
 var l = 0.0;
 var n = ac.createScriptProcessor(4096, 1, 1);
 n.connect(gain);
 
-var t=0;
 setInterval(function() {
+  var t=0;
+  w = a.width;
+  h = a.height;
+
 
   function generateVirtualImage() {
     var canvas = document.createElement('canvas');
     canvas.width = w;
     canvas.height = 200;
     var c2 = canvas.getContext('2d');
-
     c2.fillStyle = z;
-    c2.font = '180px arial';
+    c2.font = '180px Arial';
   //  c2.textAlign='center';
     i=Math.random();
     if (i < .05) {
-      //c2.fillText('𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 180);
-      c2.fillText(decodeURI('%F0%9D%9F%A6%20%F0%9D%9F%AA%20%F0%9D%9F%A3%F0%9D%9F%A7%20%F0%9D%9F%A3%F0%9D%9F%A8%20%F0%9D%9F%A4%F0%9D%9F%A5%20%F0%9D%9F%A6%F0%9D%9F%A4'), 50, 180);
+      c2.fillText('𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 180);
       t=3;
     } else if (i < .9) {
-      //c2.fillText('✪🅼🅰🅶🅸🅲✪', 0, 180,w);
-      c2.fillText(decodeURI('%E2%9C%AA%F0%9F%85%BC%F0%9F%85%B0%F0%9F%85%B6%F0%9F%85%B8%F0%9F%85%B2%E2%9C%AA'), 50, 180);
+      c2.fillText('🆃🅷🅸🆂 🅸🆂 🅽🅾🆃 🅰 🆃🅴🆂🆃', 50, 180);
       t=1;
     } else {
-      //c2.fillText('✪🅼🅼🅲🅼🅺★', 0, 180);
-      c2.fillText(decodeURI('%E2%9C%AA%F0%9F%85%BC%F0%9F%85%BC%F0%9F%85%B2%F0%9F%85%BC%F0%9F%85%BA%E2%98%85'), 50, 180);
+      c2.fillText('🆃🅷🅸🆂 🅸🆂 🅽🅾🆃 🅰 🆃🅴🆂🆃', 50, 180);
       t=2;
     }
     return canvas.toDataURL('image/jpeg');
@@ -54,18 +46,36 @@ setInterval(function() {
   function glitchImage(imageData) {
     //unescape data part of the image -> get string
     var arr = Array.from(atob(imageData.split(',')[1]));
-    var len = arr.length - 4;
     for (var i = 0; i < 3; i++) {
-      var ofs = 4 + ~~(Math.random() * len);
-      arr[ofs] = ~~(Math.random() * 255);
+      var ofs = 4 + ~~(Math.random() * (arr.length - 4));
+      arr[ofs] = ofs%255;
     }
     return 'data:image/jpeg;base64,' + btoa(arr.join(''))
   }
 
-  function drawImage(imageData) {
+  function testImage() {
+    for (var i = 0; i < 7; i++) {
+      start = 0.143*i*w;
+
+      //white, yellow, cyan, green, magenta, red, blue
+      c.fillStyle = ['#fff', '#ff0', '#0ff', '#0f0', '#f0f', '#f00', '#00f'][i];
+      c.fillRect(start, 0, w, h);
+
+      //blue, black, magenta, black, cyan, black, white
+      c.fillStyle = ['#00f', '#000', '#f0f', '#000', '#0ff', '#000', '#eee'][i];
+      c.fillRect(start, h*.7, w, h);
+
+      //greyscale
+      c.fillStyle = ['#000', '#222', '#444', '#666', '#888', '#aaa', '#ccc'][i];
+      c.fillRect(start, h*.75, w, h);
+    }
+  }
+
+  function drawImage(imageData, pos) {
     var img = new Image();
     img.onload = function() {
-      c.drawImage(this, 0, (h-200)/2);
+      testImage();
+      c.drawImage(this, 0, pos);
     };
     img.src = imageData;
   }
@@ -83,7 +93,7 @@ setInterval(function() {
 
 
   if (Math.random() < f) {
-    drawImage(glitchImage(generateVirtualImage()));
+    drawImage(glitchImage(generateVirtualImage()), 200);//(h-200)/2);
 
     if (f < 0.45) {
       f *= 2;
