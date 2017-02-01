@@ -9,7 +9,7 @@ f = 1;
 var ac = new AudioContext();
 var gain = ac.createGain();
 gain.gain.value = 0;
-//gain.connect(ac.destination);
+gain.connect(ac.destination);
 
 var l = 0.0;
 var n = ac.createScriptProcessor(4096, 1, 1);
@@ -17,9 +17,8 @@ n.connect(gain);
 
 setInterval(function() {
   var t=0;
-  w = a.width;
-  h = a.height;
-
+  var w = a.width;
+  var h = a.height;
 
   function generateVirtualImage() {
     var canvas = document.createElement('canvas');
@@ -27,17 +26,17 @@ setInterval(function() {
     canvas.height = 200;
     var c2 = canvas.getContext('2d');
     c2.fillStyle = z;
-    c2.font = '180px Arial';
+    c2.font = '160px Arial';
   //  c2.textAlign='center';
-    i=Math.random();
+    var i=Math.random();
     if (i < .05) {
       c2.fillText('𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 180);
       t=3;
     } else if (i < .9) {
-      c2.fillText('🆃🅷🅸🆂 🅸🆂 🅽🅾🆃 🅰 🆃🅴🆂🆃', 50, 180);
+      c2.fillText('🅴🅱🆂 🅸🅽🅵🅾', 50, 180);
       t=1;
     } else {
-      c2.fillText('🆃🅷🅸🆂 🅸🆂 🅽🅾🆃 🅰 🆃🅴🆂🆃', 50, 180);
+      c2.fillText('🅽🅾🆃 🅰 🆃🅴🆂🆃', 50, 180);
       t=2;
     }
     return canvas.toDataURL('image/jpeg');
@@ -55,19 +54,17 @@ setInterval(function() {
 
   function testImage() {
     for (var i = 0; i < 7; i++) {
-      start = 0.143*i*w;
-
       //white, yellow, cyan, green, magenta, red, blue
-      c.fillStyle = ['#fff', '#ff0', '#0ff', '#0f0', '#f0f', '#f00', '#00f'][i];
-      c.fillRect(start, 0, w, h);
+      c.fillStyle = '#'+['fff', 'ff0', '0ff', '0f0', 'f0f', 'f00', '00f'][i];
+      c.fillRect(0.143*i*w, 0, w, h);
 
       //blue, black, magenta, black, cyan, black, white
-      c.fillStyle = ['#00f', '#000', '#f0f', '#000', '#0ff', '#000', '#eee'][i];
-      c.fillRect(start, h*.7, w, h);
+      c.fillStyle = '#'+['00f', '000', 'f0f', '000', '0ff', '000', 'eee'][i];
+      c.fillRect(0.143*i*w, h*.7, w, h);
 
       //greyscale
-      c.fillStyle = ['#000', '#222', '#444', '#666', '#888', '#aaa', '#ccc'][i];
-      c.fillRect(start, h*.75, w, h);
+      c.fillStyle = '#'+['000', '222', '444', '666', '888', 'aaa', 'ccc'][i];
+      c.fillRect(0.143*i*w, h*.75, w, h);
     }
   }
 
@@ -85,7 +82,7 @@ setInterval(function() {
     var output = e.outputBuffer.getChannelData(0);
     for (var i = 0; i < 4096; i++) {
       var white = Math.random() * (2*t) - 1;
-      output[i] = (l + (0.02 * white)) / 1.02;
+      output[i] = (l + (.02 * white)) / 1.02;
       l = output[i];
       //output[i] *= 3.5;
     }
@@ -102,4 +99,4 @@ setInterval(function() {
     f = (f>0.1) ? f-0.1 : 0.3;
   }
 
-}, 160);
+}, 99);
