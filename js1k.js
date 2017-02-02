@@ -6,14 +6,14 @@ z.addColorStop(1, '#fff');
 //glitch factor
 f = 1;
 
-ac = new AudioContext();
-gain = ac.createGain();
-gain.gain.value = 0;
-gain.connect(ac.destination);
+v = new AudioContext();
+g = v.createGain();
+g.gain.value = 0;
+g.connect(v.destination);
 
 l = 0.0;
-n = ac.createScriptProcessor(4096, 1, 1);
-n.connect(gain);
+n = v.createScriptProcessor(4096, 1, 1);
+n.connect(g);
 
 setInterval(function() {
   var t=0;
@@ -75,7 +75,7 @@ setInterval(function() {
     img.src = imageData;
   }
 
-  gain.gain.value = f;
+  g.gain.value = f;
   n.onaudioprocess = function(e) {
     var output = e.outputBuffer.getChannelData(0);
     for (var i = 0; i < 4096; i++) {
