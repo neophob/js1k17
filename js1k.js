@@ -1,8 +1,3 @@
-//logo filler gradient
-//z = c.createLinearGradient(0, 0, 0, 200);
-//z.addColorStop(0, '#000');
-//z.addColorStop(1, '#fff');
-
 //glitch factor
 f = 1;
 
@@ -11,6 +6,7 @@ g = v.createGain();
 g.gain.value = 0;
 g.connect(v.destination);
 
+// l : last volume setting
 l = 0.0;
 n = v.createScriptProcessor(4096, 1, 1);
 n.connect(g);
@@ -35,18 +31,20 @@ setInterval(function() {
     canvas.width = a.width;
     canvas.height = 240;
     var c2 = canvas.getContext('2d');
-    c2.fillStyle = '#aaa';
+    c2.fillStyle = '#ccc';
     c2.font = '160px arial';
   //  c2.textAlign='center';
     var i=Math.random();
+    var ebs = ' 🅴🅱🆂 🅸🅽🅵🅾';
+    var lost = ' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤';
     if (i < .05) {
-      c2.fillText('𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 180);
+      c2.fillText(lost+lost, 0, 180);
       t=3;
     } else if (i < .9) {
-      c2.fillText('🅴🅱🆂 🅸🅽🅵🅾', 50, 180);
+      c2.fillText(ebs+ebs, 0, 180);
       t=1;
     } else {
-      c2.fillText('🅽🅾🆃 🅰 🆃🅴🆂🆃', 50, 180);
+      c2.fillText('🅽🅾🆃 🅰 🆃🅴🆂🆃'+ebs, 0, 180);
       t=2;
     }
     //var imageData = canvas.toDataURL('image/jpeg');
