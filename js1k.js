@@ -22,22 +22,21 @@ setInterval(function() {
   n.onaudioprocess = function(e) {
     var output = e.outputBuffer.getChannelData(0);
     for (var i = 0; i < 4096; i++) {
-      var white = Math.random() * (2*t) - 1;
-      output[i] = (l + (.02 * white)) / 1.02;
+      var white = Math.random() * 2*t - 1;
+      output[i] = (l + .02 * white) / 1.02;
       l = output[i];
       //output[i] *= 3.5;
     }
   };
 
   if (Math.random() < f) {
-
     // GENERATE VIRTUAL IMAGE START
     var canvas = document.createElement('canvas');
     canvas.width = a.width;
     canvas.height = 240;
     var c2 = canvas.getContext('2d');
     c2.fillStyle = z;
-    c2.font = '160px Arial';
+    c2.font = '160px arial';
   //  c2.textAlign='center';
     var i=Math.random();
     if (i < .05) {
@@ -57,7 +56,7 @@ setInterval(function() {
     // GLITCH IMAGE START
     var arr = Array.from(atob(canvas.toDataURL('image/jpeg').split(',')[1]));
     for (var i = 0; i < 3; i++) {
-      var ofs = 4 + ~~(Math.random() * (arr.length - 4));
+      var ofs =  ~~(4 + Math.random() * (arr.length - 4));
       arr[ofs] = ofs%255;
     }
     //imageData = 'data:image/jpeg;base64,' + btoa(arr.join(''))
@@ -92,8 +91,8 @@ setInterval(function() {
     if (f < 0.45) {
       f *= 2;
     }
-
     f = (f>0.1) ? f-0.1 : 0.3;
+
   }
 
 }, 99);
