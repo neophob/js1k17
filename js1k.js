@@ -1,7 +1,7 @@
 //logo filler gradient
-z = c.createLinearGradient(0, 0, 0, 200);
-z.addColorStop(0, '#000');
-z.addColorStop(1, '#fff');
+//z = c.createLinearGradient(0, 0, 0, 200);
+//z.addColorStop(0, '#000');
+//z.addColorStop(1, '#fff');
 
 //glitch factor
 f = 1;
@@ -35,7 +35,7 @@ setInterval(function() {
     canvas.width = a.width;
     canvas.height = 240;
     var c2 = canvas.getContext('2d');
-    c2.fillStyle = z;
+    c2.fillStyle = '#aaa';
     c2.font = '160px arial';
   //  c2.textAlign='center';
     var i=Math.random();
