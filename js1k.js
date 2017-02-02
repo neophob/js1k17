@@ -40,7 +40,7 @@ setInterval(function() {
     if (i < .05) {
       c2.fillText(lost+lost, 0, 180);
       t=3;
-    } else if (i < .9) {
+    } else if (i < .8) {
       c2.fillText(ebs+ebs, 0, 180);
       t=1;
     } else {
