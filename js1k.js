@@ -18,7 +18,20 @@ n.connect(g);
 setInterval(function() {
   var t=0;
 
-  function generateVirtualImage() {
+  g.gain.value = f;
+  n.onaudioprocess = function(e) {
+    var output = e.outputBuffer.getChannelData(0);
+    for (var i = 0; i < 4096; i++) {
+      var white = Math.random() * (2*t) - 1;
+      output[i] = (l + (.02 * white)) / 1.02;
+      l = output[i];
+      //output[i] *= 3.5;
+    }
+  };
+
+  if (Math.random() < f) {
+
+    // GENERATE VIRTUAL IMAGE START
     var canvas = document.createElement('canvas');
     canvas.width = a.width;
     canvas.height = 240;
@@ -37,20 +50,21 @@ setInterval(function() {
       c2.fillText('🅽🅾🆃 🅰 🆃🅴🆂🆃', 50, 180);
       t=2;
     }
-    return canvas.toDataURL('image/jpeg');
-  }
+    //var imageData = canvas.toDataURL('image/jpeg');
+    // GENERATE VIRTUAL IMAGE END
 
-  function glitchImage(imageData) {
-    //unescape data part of the image -> get string
-    var arr = Array.from(atob(imageData.split(',')[1]));
+
+    // GLITCH IMAGE START
+    var arr = Array.from(atob(canvas.toDataURL('image/jpeg').split(',')[1]));
     for (var i = 0; i < 3; i++) {
       var ofs = 4 + ~~(Math.random() * (arr.length - 4));
       arr[ofs] = ofs%255;
     }
-    return 'data:image/jpeg;base64,' + btoa(arr.join(''))
-  }
+    //imageData = 'data:image/jpeg;base64,' + btoa(arr.join(''))
+    // GLITCH IMAGE END
 
-  function drawImage(imageData, pos) {
+
+    // DRAW IMAGE START
     var img = new Image();
     img.onload = function() {
 
@@ -70,25 +84,11 @@ setInterval(function() {
       }
       //DRAW BACKGROUND IMAGE END
 
-      c.drawImage(this, 0, pos);
+      c.drawImage(this, 0, 100);
     };
-    img.src = imageData;
-  }
+    img.src = 'data:image/jpeg;base64,' + btoa(arr.join(''));
+    // DRAW IMAGE END
 
-  g.gain.value = f;
-  n.onaudioprocess = function(e) {
-    var output = e.outputBuffer.getChannelData(0);
-    for (var i = 0; i < 4096; i++) {
-      var white = Math.random() * (2*t) - 1;
-      output[i] = (l + (.02 * white)) / 1.02;
-      l = output[i];
-      //output[i] *= 3.5;
-    }
-  };
-
-
-  if (Math.random() < f) {
-    drawImage(glitchImage(generateVirtualImage()), 100);//(a.height-240)/3);
     if (f < 0.45) {
       f *= 2;
     }
