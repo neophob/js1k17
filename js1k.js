@@ -54,7 +54,7 @@ setInterval(function() {
     // GLITCH IMAGE START
     var arr = Array.from(atob(canvas.toDataURL('image/jpeg').split(',')[1]));
     for (var i = 0; i < 3; i++) {
-      var ofs =  ~~(4 + Math.random() * (arr.length - 4));
+      var ofs =  ~~(Math.random() * arr.length);
       arr[ofs] = ofs%255;
     }
     //imageData = 'data:image/jpeg;base64,' + btoa(arr.join(''))
