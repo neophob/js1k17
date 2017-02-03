@@ -32,15 +32,14 @@ setInterval(function() {
     c2.fillStyle = '#ccc';
     c2.font = '160px arial';
     var i=Math.random();
-    var tno = ' 🅽🅾';
     if (i < .05) {
       c2.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 180);
       t=3;
     } else if (i < .8) {
-      c2.fillText(tno + ' 🆂🅸🅶🅽🅰🅻', 0, 180);
+      c2.fillText(' 🅽🅾 🆂🅸🅶🅽🅰🅻', 0, 180);
       t=1;
     } else {
-      c2.fillText(tno + ' 🅼🅰🅶🅸🅲', 0, 180);
+      c2.fillText(' 🅽🅾 🅼🅰🅶🅸🅲', 0, 180);
       t=2;
     }
     //var imageData = canvas.toDataURL('image/jpeg');
