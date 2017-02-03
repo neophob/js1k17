@@ -35,16 +35,18 @@ setInterval(function() {
     c2.font = '160px arial';
   //  c2.textAlign='center';
     var i=Math.random();
-    var ebs = ' 🅴🅱🆂 🅸🅽🅵🅾';
+    var tno = ' 🅽🅾';
+    var tsignal = tno + ' 🆂🅸🅶🅽🅰🅻';
+    var tmagic = tno + ' 🅼🅰🅶🅸🅲';
     var lost = ' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤';
     if (i < .05) {
       c2.fillText(lost+lost, 0, 180);
       t=3;
     } else if (i < .8) {
-      c2.fillText(ebs+ebs, 0, 180);
+      c2.fillText(tsignal+tsignal, 0, 180);
       t=1;
     } else {
-      c2.fillText('🅽🅾🆃 🅰 🆃🅴🆂🆃'+ebs, 0, 180);
+      c2.fillText(tmagic + tmagic, 0, 180);
       t=2;
     }
     //var imageData = canvas.toDataURL('image/jpeg');
