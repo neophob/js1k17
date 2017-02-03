@@ -3,7 +3,6 @@ f = 1;
 
 v = new AudioContext();
 g = v.createGain();
-g.gain.value = 0;
 g.connect(v.destination);
 
 // l : last volume setting
@@ -11,6 +10,7 @@ l = 0.0;
 n = v.createScriptProcessor(4096, 1, 1);
 n.connect(g);
 
+t = 0;
 setInterval(function() {
   g.gain.value = f;
   n.onaudioprocess = function(e) {
@@ -23,7 +23,6 @@ setInterval(function() {
   };
 
   if (Math.random() < f) {
-    var t;
     // GENERATE VIRTUAL IMAGE START
     var canvas = document.createElement('canvas');
     canvas.width = a.width;
@@ -80,6 +79,15 @@ setInterval(function() {
 
       c.fillStyle = 'rgba(0,0,0,0.5)';
       //c.fillStyle = '#0007';
+      //image
+      var ofs = ~~(Math.random() * 20);
+      if (ofs < 3) {
+  			var pic = c.getImageData(0, 0, a.width, a.height);
+        for (var i=ofs; i<pic.data.length; i+=4) pic.data[i] = 0;
+        c.putImageData(pic, 0, 0);
+      }
+
+      //Scanline
       for (var i = 0; i < a.height; i+=3) {
   			c.fillRect(0, i, a.width, 1);
       }
@@ -91,7 +99,6 @@ setInterval(function() {
       f *= 2;
     }
     f = (f>0.1) ? f-0.1 : 0.3;
-
   }
 
 }, 99);
