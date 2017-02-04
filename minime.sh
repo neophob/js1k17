@@ -22,14 +22,14 @@ REGPACK=./node_modules/.bin/regpack
 OUT=./dist
 
 UGLIFY_OPT="--compress --screw-ie8 -v --mangle --"
-REGPACK_OPT1="- --useES6 false --hash2DContext --contextVariableName 'c' --crushGainFactor 0 --crushLengthFactor 0 --crushCopiesFactor 0"
-REGPACK_OPT2="- --useES6 false --hash2DContext --contextVariableName 'c' --crushGainFactor 3 --crushLengthFactor 2 --crushCopiesFactor 1"
-REGPACK_OPT3="- --useES6 false --hash2DContext --contextVariableName 'c' --crushGainFactor 4 --crushLengthFactor 4 --crushCopiesFactor 1"
-REGPACK_OPT4="- --useES6 false --hash2DContext --contextVariableName 'c' --crushGainFactor 6 --crushLengthFactor 1 --crushCopiesFactor 6"
-REGPACK_OPT5="- --useES6 false --hash2DContext --contextVariableName 'c' --crushGainFactor 4 --crushLengthFactor 1 --crushCopiesFactor 0"
-REGPACK_OPT6="- --useES6 false --hash2DContext --contextVariableName 'c' --crushGainFactor 5 --crushLengthFactor 1 --crushCopiesFactor 0"
-REGPACK_OPT7="- --useES6 false --hash2DContext --contextVariableName 'c' --crushGainFactor 5 --crushLengthFactor 4 --crushCopiesFactor 3"
-REGPACK_OPT8="- --useES6 false --hash2DContext --contextVariableName 'c' --crushGainFactor 4 --crushLengthFactor 4 --crushCopiesFactor 0"
+REGPACK_OPT1="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 5 --crushLengthFactor 1 --crushCopiesFactor 0 --crushTiebreakerFactor 0"
+REGPACK_OPT2="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 3 --crushLengthFactor 2 --crushCopiesFactor 1"
+REGPACK_OPT3="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 4 --crushLengthFactor 4 --crushCopiesFactor 1"
+REGPACK_OPT4="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 4 --crushLengthFactor 0 --crushCopiesFactor 0 --crushTiebreakerFactor 0"
+REGPACK_OPT5="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 4 --crushLengthFactor 1 --crushCopiesFactor 0"
+REGPACK_OPT6="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 5 --crushLengthFactor 1 --crushCopiesFactor 0"
+REGPACK_OPT7="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 5 --crushLengthFactor 4 --crushCopiesFactor 3"
+REGPACK_OPT8="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 5 --crushLengthFactor 0 --crushCopiesFactor 0 --crushTiebreakerFactor 0"
 
 mkdir -p $OUT
 
