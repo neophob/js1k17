@@ -97,8 +97,8 @@ setInterval(function() {
       }
 
       //DRAW SCANLINES
-      c.fillStyle = '#224';
       for (i = 0; i < a.height; i+=3) {
+        c.fillStyle = '#224';
   			c.fillRect(0, i, a.width, 1);
       }
     };
