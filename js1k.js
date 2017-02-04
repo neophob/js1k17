@@ -52,7 +52,7 @@ setInterval(function() {
     //v variable is canvas
     var arr = Array.from(atob(v.toDataURL('image/jpeg').split(',')[1]));
     for (i = 0; i < 3; i++) {
-      arr[~~(Math.random() * arr.length)] = i;
+      arr[(Math.random() * arr.length)|0] = i;
     }
     // GLITCH IMAGE END
 
@@ -80,9 +80,9 @@ setInterval(function() {
       // POST PROCESSING WHOLE IMAGE
 
       //FLIP OF RANDOM COLOR CHANNEL
-      ofs = ~~(Math.random() * 16);
+      ofs = (Math.random() * 16)|0;
       if (ofs < 3) {
-        img = ~~(Math.random() * 64)*4;
+        img = 4*(Math.random() * 64)|0;
   			v = c.getImageData(0, 0, a.width, a.height);
         for (i=ofs; i<a.width*a.height*4; i+=4) {
           v.data[i] = v.data[i+img];
