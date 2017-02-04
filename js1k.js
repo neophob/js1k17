@@ -29,7 +29,6 @@ setInterval(function() {
     ofs.font = '160px arial';
     var i=Math.random();
 
-
     //amplifier for audio noise
     var t = 0;
     if (i < .05) {
@@ -99,8 +98,7 @@ setInterval(function() {
 
       //DRAW SCANLINES
       for (i = 0; i < a.height; i+=3) {
-        //c.fillStyle = '#0007';
-        c.fillStyle = 'rgba(0,0,0,0.5)';
+        c.fillStyle = '#224';
   			c.fillRect(0, i, a.width, 1);
       }
     };
