@@ -6,11 +6,10 @@ g = v.createGain();
 g.connect(v.destination);
 
 // l : last volume setting
-//glitch factor
 l = 1;
 
 // n: variable to access sound buffer
-n = v.createScriptProcessor(512, 1, 1);
+n = v.createScriptProcessor(1024, 1, 1);
 n.connect(g);
 
 function p() {
@@ -24,7 +23,7 @@ function p() {
     ofs.font = '160px arial';
     ofs.fillStyle = '#ccc';
 
-    var i = g.gain.value = Math.random();
+    var i = Math.random();
     if (i < .05) {
       ofs.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 200);
     } else if (i < .6) {
@@ -32,11 +31,12 @@ function p() {
     } else {
       ofs.fillText(' 🅽🅾 🅼🅰🅶🅸🅲', 0, 200);
     }
+    g.gain.value =(i+l)/2;
 
     // GENERATE VIRTUAL IMAGE END
 
     n.onaudioprocess = function(e) {
-      for (i = 0; i < 512; i++) {
+      for (i = 0; i < 1024; i++) {
         l = e.outputBuffer.getChannelData(0)[i] = (l + .02 * (Math.random() * 2 - 1)) / 1.02;
       }
     };
@@ -75,10 +75,10 @@ function p() {
       //FLIP OF RANDOM COLOR CHANNEL
       ofs = (Math.random() * 16)|0;
       if (ofs < 3) {
-        img = 4*(Math.random() * 64)|0;
+        img = 4*(Math.random() * 32)|0;
   			v = c.getImageData(0, 0, a.width, a.height);
-        for (i=ofs; i<a.width*a.height*4; i+=4) {
-          v.data[i] = v.data[i+img];
+        for (i=a.width*a.height*4-ofs; i>3; i-=4) {
+          v.data[i] = v.data[i-img];
         }
         c.putImageData(v, 0, 0);
       }
