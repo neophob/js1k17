@@ -14,11 +14,6 @@ n.connect(g);
 t = 0;
 setInterval(function() {
   g.gain.value = f;
-  n.onaudioprocess = function(e) {
-    for (var i = 0; i < 2048; i++) {
-      l = e.outputBuffer.getChannelData(0)[i] = (l + 0.02 * (Math.random() * 2 * t - 1)) / 1.02;
-    }
-  };
 
   if (Math.random() < f) {
     // GENERATE VIRTUAL IMAGE START
@@ -42,6 +37,11 @@ setInterval(function() {
     //var imageData = canvas.toDataURL('image/jpeg');
     // GENERATE VIRTUAL IMAGE END
 
+    n.onaudioprocess = function(e) {
+      for (var i = 0; i < 2048; i++) {
+        l = e.outputBuffer.getChannelData(0)[i] = (l + 0.02 * (Math.random() * 2 * t - 1)) / 1.02;
+      }
+    };
 
     // GLITCH IMAGE START
     var arr = Array.from(atob(canvas.toDataURL('image/jpeg').split(',')[1]));
