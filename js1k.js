@@ -10,14 +10,13 @@ l = 0;
 n = v.createScriptProcessor(2048, 1, 1);
 n.connect(g);
 
-//amplifier for udio noise
+//amplifier for audio noise
 t = 0;
 setInterval(function() {
   g.gain.value = f;
   n.onaudioprocess = function(e) {
-    var output = e.outputBuffer.getChannelData(0);
     for (var i = 0; i < 2048; i++) {
-      l = output[i] = (l + 0.02 * (Math.random() * 2 * t - 1)) / 1.02;
+      l = e.outputBuffer.getChannelData(0)[i] = (l + 0.02 * (Math.random() * 2 * t - 1)) / 1.02;
     }
   };
 
