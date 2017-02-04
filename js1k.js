@@ -46,7 +46,7 @@ setInterval(function() {
 
     // GLITCH IMAGE START
     var arr = Array.from(atob(canvas.toDataURL('image/jpeg').split(',')[1]));
-    for (var i = 0; i < 3; i++) {
+    for (i = 0; i < 3; i++) {
       var ofs =  ~~(Math.random() * arr.length);
       arr[ofs] = ofs%255;
     }
@@ -58,7 +58,7 @@ setInterval(function() {
     var img = new Image();
     img.onload = function() {
       //DRAW BACKGROUND IMAGE START - must by sync with glitch image to prevent flickering
-      for (var i = 0; i < 7; i++) {
+      for (i = 0; i < 7; i++) {
         //white, yellow, cyan, green, magenta, red, blue
         c.fillStyle = '#'+['fff', 'ff0', '0ff', '0f0', 'f0f', 'f00', '00f'][i];
         c.fillRect(0.143*i*a.width, 0, a.width, a.height);
@@ -81,12 +81,12 @@ setInterval(function() {
       var ofs = ~~(Math.random() * 20);
       if (ofs < 3) {
   			var pic = c.getImageData(0, 0, a.width, a.height);
-        for (var i=ofs; i<a.width*a.height*4; i+=4) pic.data[i] = 0;
+        for (i=ofs; i<a.width*a.height*4; i+=4) pic.data[i] = 0;
         c.putImageData(pic, 0, 0);
       }
 
       //Scanline
-      for (var i = 0; i < a.height; i+=3) {
+      for (i = 0; i < a.height; i+=3) {
         //c.fillStyle = '#0007';
         c.fillStyle = 'rgba(0,0,0,0.5)';
   			c.fillRect(0, i, a.width, 1);
