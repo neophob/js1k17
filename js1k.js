@@ -7,6 +7,7 @@ g.connect(v.destination);
 
 // l : last volume setting
 l = 0;
+// n: variable to access sound buffer
 n = v.createScriptProcessor(2048, 1, 1);
 n.connect(g);
 
@@ -15,10 +16,12 @@ setInterval(function() {
 
   if (Math.random() < f) {
     // GENERATE VIRTUAL IMAGE START
-    var canvas = document.createElement('canvas');
-    canvas.width = a.width;
-    canvas.height = 240;
-    var c2 = canvas.getContext('2d');
+
+    //v is CANVAS
+    v = document.createElement('canvas');
+    v.width = a.width;
+    v.height = 240;
+    var c2 = v.getContext('2d');
     c2.fillStyle = '#ccc';
     c2.font = '160px arial';
     var i=Math.random();
@@ -46,7 +49,8 @@ setInterval(function() {
     };
 
     // GLITCH IMAGE START
-    var arr = Array.from(atob(canvas.toDataURL('image/jpeg').split(',')[1]));
+    //v variable is canvas
+    var arr = Array.from(atob(v.toDataURL('image/jpeg').split(',')[1]));
     for (i = 0; i < 3; i++) {
       ofs =  ~~(Math.random() * arr.length);
       arr[ofs] = ofs%255;
@@ -78,16 +82,17 @@ setInterval(function() {
 
 
       // POST PROCESSING WHOLE IMAGE
-      //image
+
+      //FLIP OF RANDOM COLOR CHANNEL
       ofs = ~~(Math.random() * 20);
       if (ofs < 3) {
         //NOTE: reuse variable t, which is only needed above!
-  			t = c.getImageData(0, 0, a.width, a.height);
-        for (i=ofs; i<a.width*a.height*4; i+=4) t.data[i] = 0;
-        c.putImageData(t, 0, 0);
+  			c2 = c.getImageData(0, 0, a.width, a.height);
+        for (i=ofs; i<a.width*a.height*4; i+=4) c2.data[i] = 0;
+        c.putImageData(c2, 0, 0);
       }
 
-      //Scanline
+      //DRAW SCANLINES
       for (i = 0; i < a.height; i+=3) {
         //c.fillStyle = '#0007';
         c.fillStyle = 'rgba(0,0,0,0.5)';
