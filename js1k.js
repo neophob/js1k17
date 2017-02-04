@@ -39,7 +39,7 @@ setInterval(function() {
     // GENERATE VIRTUAL IMAGE END
 
     n.onaudioprocess = function(e) {
-      for (var i = 0; i < 2048; i++) {
+      for (i = 0; i < 2048; i++) {
         l = e.outputBuffer.getChannelData(0)[i] = (l + 0.02 * (Math.random() * 2 * t - 1)) / 1.02;
       }
     };
