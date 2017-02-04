@@ -29,7 +29,7 @@ setInterval(function() {
     var i=Math.random();
 
     //amplifier for audio noise
-    var t = 0;
+    var t;
     if (i < .05) {
       ofs.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 200);
       t=3;
