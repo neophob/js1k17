@@ -10,8 +10,6 @@ l = 0;
 n = v.createScriptProcessor(2048, 1, 1);
 n.connect(g);
 
-//amplifier for audio noise
-t = 0;
 setInterval(function() {
   g.gain.value = f;
 
@@ -24,6 +22,9 @@ setInterval(function() {
     c2.fillStyle = '#ccc';
     c2.font = '160px arial';
     var i=Math.random();
+
+    //amplifier for audio noise
+    var t = 0;
     if (i < .05) {
       c2.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 180);
       t=3;
