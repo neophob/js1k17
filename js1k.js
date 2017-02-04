@@ -22,6 +22,7 @@ setInterval(function() {
     c2.fillStyle = '#ccc';
     c2.font = '160px arial';
     var i=Math.random();
+    var ofs;
 
     //amplifier for audio noise
     var t = 0;
@@ -47,7 +48,7 @@ setInterval(function() {
     // GLITCH IMAGE START
     var arr = Array.from(atob(canvas.toDataURL('image/jpeg').split(',')[1]));
     for (i = 0; i < 3; i++) {
-      var ofs =  ~~(Math.random() * arr.length);
+      ofs =  ~~(Math.random() * arr.length);
       arr[ofs] = ofs%255;
     }
     //imageData = 'data:image/jpeg;base64,' + btoa(arr.join(''))
@@ -78,11 +79,12 @@ setInterval(function() {
 
       // POST PROCESSING WHOLE IMAGE
       //image
-      var ofs = ~~(Math.random() * 20);
+      ofs = ~~(Math.random() * 20);
       if (ofs < 3) {
-  			var pic = c.getImageData(0, 0, a.width, a.height);
-        for (i=ofs; i<a.width*a.height*4; i+=4) pic.data[i] = 0;
-        c.putImageData(pic, 0, 0);
+        //NOTE: reuse variable t, which is only needed above!
+  			t = c.getImageData(0, 0, a.width, a.height);
+        for (i=ofs; i<a.width*a.height*4; i+=4) t.data[i] = 0;
+        c.putImageData(t, 0, 0);
       }
 
       //Scanline
