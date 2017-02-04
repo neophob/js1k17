@@ -23,7 +23,7 @@ setInterval(function() {
     //v is CANVAS
     v = document.createElement('canvas');
     v.width = a.width;
-    v.height = 240;
+    v.height = 256;
     var ofs = v.getContext('2d');
     ofs.fillStyle = '#ccc';
     ofs.font = '160px arial';
@@ -32,16 +32,15 @@ setInterval(function() {
     //amplifier for audio noise
     var t = 0;
     if (i < .05) {
-      ofs.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 180);
+      ofs.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 200);
       t=3;
     } else if (i < .8) {
-      ofs.fillText(' 🅽🅾 🆂🅸🅶🅽🅰🅻', 0, 180);
+      ofs.fillText(' 🅽🅾 🆂🅸🅶🅽🅰🅻', 0, 200);
       t=1;
     } else {
-      ofs.fillText(' 🅽🅾 🅼🅰🅶🅸🅲', 0, 180);
+      ofs.fillText(' 🅽🅾 🅼🅰🅶🅸🅲', 0, 200);
       t=2;
     }
-    //var imageData = canvas.toDataURL('image/jpeg');
     // GENERATE VIRTUAL IMAGE END
 
     n.onaudioprocess = function(e) {
@@ -54,8 +53,7 @@ setInterval(function() {
     //v variable is canvas
     var arr = Array.from(atob(v.toDataURL('image/jpeg').split(',')[1]));
     for (i = 0; i < 3; i++) {
-      ofs =  ~~(Math.random() * arr.length);
-      arr[ofs] = ofs%255;
+      arr[~~(Math.random() * arr.length)] = i;
     }
     //imageData = 'data:image/jpeg;base64,' + btoa(arr.join(''))
     // GLITCH IMAGE END
