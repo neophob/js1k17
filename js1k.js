@@ -1,6 +1,3 @@
-//glitch factor
-f = 1;
-
 //v temporary variable
 v = new AudioContext();
 
@@ -9,7 +6,9 @@ g = v.createGain();
 g.connect(v.destination);
 
 // l : last volume setting
-l = 0;
+//glitch factor
+l = f = 1;
+
 // n: variable to access sound buffer
 n = v.createScriptProcessor(256, 1, 1);
 n.connect(g);
@@ -25,8 +24,8 @@ setInterval(function() {
     v.width = a.width;
     v.height = 256;
     var ofs = v.getContext('2d');
-    ofs.fillStyle = '#ccc';
     ofs.font = '160px arial';
+    ofs.fillStyle = '#ccc';
     var i=Math.random();
 
     //amplifier for audio noise
@@ -55,9 +54,7 @@ setInterval(function() {
     for (i = 0; i < 3; i++) {
       arr[~~(Math.random() * arr.length)] = i;
     }
-    //imageData = 'data:image/jpeg;base64,' + btoa(arr.join(''))
     // GLITCH IMAGE END
-
 
     // DRAW IMAGE START
     var img = new Image();
@@ -79,7 +76,6 @@ setInterval(function() {
       }
       //DRAW BACKGROUND IMAGE END
       c.drawImage(this, 0, 100);
-
 
       // POST PROCESSING WHOLE IMAGE
 
