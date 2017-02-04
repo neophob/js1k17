@@ -78,7 +78,6 @@ setInterval(function() {
 
 
       // POST PROCESSING WHOLE IMAGE
-      c.fillStyle = 'rgba(0,0,0,0.5)';
       //c.fillStyle = '#0007';
       //image
       var ofs = ~~(Math.random() * 20);
@@ -90,6 +89,7 @@ setInterval(function() {
 
       //Scanline
       for (var i = 0; i < a.height; i+=3) {
+        c.fillStyle = 'rgba(0,0,0,0.5)';
   			c.fillRect(0, i, a.width, 1);
       }
     };
