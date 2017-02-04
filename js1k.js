@@ -44,7 +44,7 @@ setInterval(function() {
 
     n.onaudioprocess = function(e) {
       for (i = 0; i < 512; i++) {
-        l = e.outputBuffer.getChannelData(0)[i] = (l + 0.02 * (Math.random() * 2 * t - 1)) / 1.02;
+        l = e.outputBuffer.getChannelData(0)[i] = (l + .02 * (Math.random() * 2 * t - 1)) / 1.02;
       }
     };
 
@@ -63,16 +63,16 @@ setInterval(function() {
       for (i = 0; i < 7; i++) {
         //white, yellow, cyan, green, magenta, red, blue
         c.fillStyle = '#'+['fff', 'ff0', '0ff', '0f0', 'f0f', 'f00', '00f'][i];
-        c.fillRect(0.143*i*a.width, 0, a.width, a.height);
+        c.fillRect(.143*i*a.width, 0, a.width, a.height);
 
         //blue, black, magenta, black, cyan, black, white
         //OPTION: replace [i] with [~~(Math.random() * 7)];
         c.fillStyle = '#'+['00f', '000', 'f0f', '000', '0ff', '000', 'eee'][i];
-        c.fillRect(0.143*i*a.width, a.height*.75, a.width, a.height);
+        c.fillRect(.143*i*a.width, a.height*.75, a.width, a.height);
 
         //greyscale
         c.fillStyle = '#'+['000', '222', '444', '666', '888', 'aaa', 'ccc'][i];
-        c.fillRect(0.143*i*a.width, a.height*.8, a.width, a.height);
+        c.fillRect(.143*i*a.width, a.height*.8, a.width, a.height);
       }
       //DRAW BACKGROUND IMAGE END
       c.drawImage(this, 0, 100);
@@ -100,7 +100,7 @@ setInterval(function() {
     img.src = 'data:image/jpeg;base64,' + btoa(arr.join(''));
     // DRAW IMAGE END
 
-    f = (f < 0.4) ? f*2 : (f>0.1) ? f-0.1 : 0.3;
+    f = (f < .4) ? f*2 : (f>.1) ? f-.1 : .3;
   }
 
 }, 100);
