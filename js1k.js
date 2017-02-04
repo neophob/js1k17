@@ -7,17 +7,17 @@ g.connect(v.destination);
 
 // l : last volume setting
 l = 0.0;
-n = v.createScriptProcessor(4096, 1, 1);
+n = v.createScriptProcessor(2048, 1, 1);
 n.connect(g);
 
+//amplifier for udio noise
 t = 0;
 setInterval(function() {
   g.gain.value = f;
   n.onaudioprocess = function(e) {
     var output = e.outputBuffer.getChannelData(0);
-    for (var i = 0; i < 4096; i++) {
-      var white = Math.random() * 2*t - 1;
-      output[i] = (l + .02 * white) / 1.02;
+    for (var i = 0; i < 2048; i++) {
+      output[i] = (l + 0.02 * (Math.random() * 2*t - 1)) / 1.02;
       l = output[i];
     }
   };
@@ -102,4 +102,4 @@ setInterval(function() {
     f = (f>0.1) ? f-0.1 : 0.3;
   }
 
-}, 99);
+}, 100);
