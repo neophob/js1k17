@@ -83,7 +83,7 @@ setInterval(function() {
       var ofs = ~~(Math.random() * 20);
       if (ofs < 3) {
   			var pic = c.getImageData(0, 0, a.width, a.height);
-        for (var i=ofs; i<pic.data.length; i+=4) pic.data[i] = 0;
+        for (var i=ofs; i<a.width*a.height*4; i+=4) pic.data[i] = 0;
         c.putImageData(pic, 0, 0);
       }
 
