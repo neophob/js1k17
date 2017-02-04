@@ -17,8 +17,7 @@ setInterval(function() {
   n.onaudioprocess = function(e) {
     var output = e.outputBuffer.getChannelData(0);
     for (var i = 0; i < 2048; i++) {
-      output[i] = (l + 0.02 * (Math.random() * 2*t - 1)) / 1.02;
-      l = output[i];
+      l = output[i] = (l + 0.02 * (Math.random() * 2*t - 1)) / 1.02;
     }
   };
 
