@@ -10,7 +10,7 @@ g.connect(v.destination);
 l = f = 1;
 
 // n: variable to access sound buffer
-n = v.createScriptProcessor(256, 1, 1);
+n = v.createScriptProcessor(512, 1, 1);
 n.connect(g);
 
 setInterval(function() {
@@ -33,7 +33,7 @@ setInterval(function() {
     if (i < .05) {
       ofs.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 200);
       t=3;
-    } else if (i < .8) {
+    } else if (i < .6) {
       ofs.fillText(' 🅽🅾 🆂🅸🅶🅽🅰🅻', 0, 200);
       t=1;
     } else {
@@ -43,7 +43,7 @@ setInterval(function() {
     // GENERATE VIRTUAL IMAGE END
 
     n.onaudioprocess = function(e) {
-      for (i = 0; i < 256; i++) {
+      for (i = 0; i < 512; i++) {
         l = e.outputBuffer.getChannelData(0)[i] = (l + 0.02 * (Math.random() * 2 * t - 1)) / 1.02;
       }
     };
@@ -82,10 +82,13 @@ setInterval(function() {
       //FLIP OF RANDOM COLOR CHANNEL
       ofs = ~~(Math.random() * 20);
       if (ofs < 3) {
-        //NOTE: reuse variable t, which is only needed above!
   			v = c.getImageData(0, 0, a.width, a.height);
+        img = 64;
         for (i=ofs; i<a.width*a.height*4; i+=4) {
-          v.data[i] = 0;
+          if (i%(ofs+a.width*64)===0) {
+            img += ~~(Math.random() * 16)*4 - 32;
+          }
+          v.data[i] = v.data[i+img];
         }
         c.putImageData(v, 0, 0);
       }
@@ -99,7 +102,7 @@ setInterval(function() {
     img.src = 'data:image/jpeg;base64,' + btoa(arr.join(''));
     // DRAW IMAGE END
 
-    f = (f < 0.3) ? f*2 : (f>0.1) ? f-0.1 : 0.3;
+    f = (f < 0.4) ? f*2 : (f>0.1) ? f-0.1 : 0.3;
   }
 
 }, 100);
