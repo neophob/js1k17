@@ -24,22 +24,22 @@ setInterval(function() {
     v = document.createElement('canvas');
     v.width = a.width;
     v.height = 240;
-    var c2 = v.getContext('2d');
-    c2.fillStyle = '#ccc';
-    c2.font = '160px arial';
+    var ofs = v.getContext('2d');
+    ofs.fillStyle = '#ccc';
+    ofs.font = '160px arial';
     var i=Math.random();
-    var ofs;
+
 
     //amplifier for audio noise
     var t = 0;
     if (i < .05) {
-      c2.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 180);
+      ofs.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 180);
       t=3;
     } else if (i < .8) {
-      c2.fillText(' 🅽🅾 🆂🅸🅶🅽🅰🅻', 0, 180);
+      ofs.fillText(' 🅽🅾 🆂🅸🅶🅽🅰🅻', 0, 180);
       t=1;
     } else {
-      c2.fillText(' 🅽🅾 🅼🅰🅶🅸🅲', 0, 180);
+      ofs.fillText(' 🅽🅾 🅼🅰🅶🅸🅲', 0, 180);
       t=2;
     }
     //var imageData = canvas.toDataURL('image/jpeg');
@@ -90,11 +90,11 @@ setInterval(function() {
       ofs = ~~(Math.random() * 20);
       if (ofs < 3) {
         //NOTE: reuse variable t, which is only needed above!
-  			c2 = c.getImageData(0, 0, a.width, a.height);
+  			v = c.getImageData(0, 0, a.width, a.height);
         for (i=ofs; i<a.width*a.height*4; i+=4) {
-          c2.data[i] = 0;
+          v.data[i] = 0;
         }
-        c.putImageData(c2, 0, 0);
+        c.putImageData(v, 0, 0);
       }
 
       //DRAW SCANLINES
