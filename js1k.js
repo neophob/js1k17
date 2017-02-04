@@ -1,14 +1,17 @@
 //glitch factor
 f = 1;
 
+//v temporary variable
 v = new AudioContext();
+
+//g access to gain control
 g = v.createGain();
 g.connect(v.destination);
 
 // l : last volume setting
 l = 0;
 // n: variable to access sound buffer
-n = v.createScriptProcessor(2048, 1, 1);
+n = v.createScriptProcessor(256, 1, 1);
 n.connect(g);
 
 setInterval(function() {
@@ -43,7 +46,7 @@ setInterval(function() {
     // GENERATE VIRTUAL IMAGE END
 
     n.onaudioprocess = function(e) {
-      for (i = 0; i < 2048; i++) {
+      for (i = 0; i < 256; i++) {
         l = e.outputBuffer.getChannelData(0)[i] = (l + 0.02 * (Math.random() * 2 * t - 1)) / 1.02;
       }
     };
@@ -88,7 +91,9 @@ setInterval(function() {
       if (ofs < 3) {
         //NOTE: reuse variable t, which is only needed above!
   			c2 = c.getImageData(0, 0, a.width, a.height);
-        for (i=ofs; i<a.width*a.height*4; i+=4) c2.data[i] = 0;
+        for (i=ofs; i<a.width*a.height*4; i+=4) {
+          c2.data[i] = 0;
+        }
         c.putImageData(c2, 0, 0);
       }
 
