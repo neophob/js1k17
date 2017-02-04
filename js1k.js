@@ -80,14 +80,11 @@ setInterval(function() {
       // POST PROCESSING WHOLE IMAGE
 
       //FLIP OF RANDOM COLOR CHANNEL
-      ofs = ~~(Math.random() * 20);
+      ofs = ~~(Math.random() * 16);
       if (ofs < 3) {
+        img = ~~(Math.random() * 64)*4;
   			v = c.getImageData(0, 0, a.width, a.height);
-        img = 64;
         for (i=ofs; i<a.width*a.height*4; i+=4) {
-          if (i%(ofs+a.width*64)===0) {
-            img += ~~(Math.random() * 16)*4 - 32;
-          }
           v.data[i] = v.data[i+img];
         }
         c.putImageData(v, 0, 0);
@@ -98,6 +95,7 @@ setInterval(function() {
         c.fillStyle = '#224';
   			c.fillRect(0, i, a.width, 1);
       }
+
     };
     img.src = 'data:image/jpeg;base64,' + btoa(arr.join(''));
     // DRAW IMAGE END
