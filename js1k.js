@@ -99,10 +99,7 @@ setInterval(function() {
     img.src = 'data:image/jpeg;base64,' + btoa(arr.join(''));
     // DRAW IMAGE END
 
-    if (f < 0.45) {
-      f *= 2;
-    }
-    f = (f>0.1) ? f-0.1 : 0.3;
+    f = (f < 0.3) ? f*2 : (f>0.1) ? f-0.1 : 0.3;
   }
 
 }, 100);
