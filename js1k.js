@@ -73,26 +73,24 @@ function p() {
       // POST PROCESSING WHOLE IMAGE
 
       //FLIP OF RANDOM COLOR CHANNEL
-      ofs = (Math.random() * 16)|0;
+      ofs = (Math.random() * 6)|0;
       if (ofs < 3) {
-        img = 4*(Math.random() * 32)|0;
+        img = 4*((Math.random() * 100)|0);
   			v = c.getImageData(0, 0, a.width, a.height);
         for (i=a.width*a.height*4-ofs; i>3; i-=4) {
           v.data[i] = v.data[i-img];
         }
         c.putImageData(v, 0, 0);
       }
-
       //DRAW SCANLINES
       for (i = 0; i < a.height; i+=3) {
         c.fillStyle = '#224';
   			c.fillRect(0, i, a.width, 1);
       }
-
     };
     img.src = 'data:image/jpeg;base64,' + btoa(arr.join(''));
     // DRAW IMAGE END
 
-    setTimeout(p, 80+Math.random()*200);
+    setTimeout(p, 30+Math.random()*200);
 }
 setTimeout(p, 0);
