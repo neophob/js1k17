@@ -74,9 +74,10 @@ setInterval(function() {
         c.fillRect(0.143*i*a.width, a.height*.8, a.width, a.height);
       }
       //DRAW BACKGROUND IMAGE END
-
       c.drawImage(this, 0, 100);
 
+
+      // POST PROCESSING WHOLE IMAGE
       c.fillStyle = 'rgba(0,0,0,0.5)';
       //c.fillStyle = '#0007';
       //image

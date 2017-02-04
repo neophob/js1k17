@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "min": "uglifyjs --compress --screw-ie8 -v --mangle -- js1k.js > js1k.ugly.js && regpack js1k.ugly.js --hash2DContext --contextVariableName 'c' --crushGainFactor 0 --crushLengthFactor 0 --crushCopiesFactor 0 > js1k-regpacked.js",
-    "minmath": "uglifyjs --compress --screw-ie8 -v --mangle -- js1k.js > js1k.ugly.js && regpack js1k.ugly.js --hash2DContext --withMath --contextVariableName 'c' --crushGainFactor 0 --crushLengthFactor 0 --crushCopiesFactor 0 > js1k-regpacked.js",
-    "release": "npm run min && npm run babili && base64 js1k-regpacked.js > js1k.base64",
-    "babili": "babili js1k.js > js1k.babili.js && regpack js1k.babili.js --hash2DContext --contextVariableName 'c' --crushGainFactor 1 --crushLengthFactor 0 --crushCopiesFactor 0 > js1k-regpacked-babili.js"
+    "release": "./minime.sh"
   },
   "author": "Michael Vogt",
   "license": "MIT",
