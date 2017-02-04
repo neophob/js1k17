@@ -7,16 +7,13 @@ g.connect(v.destination);
 
 // l : last volume setting
 //glitch factor
-l = f = 1;
+l = 1;
 
 // n: variable to access sound buffer
 n = v.createScriptProcessor(512, 1, 1);
 n.connect(g);
 
-setInterval(function() {
-  g.gain.value = f;
-
-  if (Math.random() < f) {
+function p() {
     // GENERATE VIRTUAL IMAGE START
 
     //v is CANVAS
@@ -26,25 +23,21 @@ setInterval(function() {
     var ofs = v.getContext('2d');
     ofs.font = '160px arial';
     ofs.fillStyle = '#ccc';
-    var i=Math.random();
 
-    //amplifier for audio noise
-    var t;
+    var i = g.gain.value = Math.random();
     if (i < .05) {
       ofs.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 200);
-      t=3;
     } else if (i < .6) {
       ofs.fillText(' 🅽🅾 🆂🅸🅶🅽🅰🅻', 0, 200);
-      t=1;
     } else {
       ofs.fillText(' 🅽🅾 🅼🅰🅶🅸🅲', 0, 200);
-      t=2;
     }
+
     // GENERATE VIRTUAL IMAGE END
 
     n.onaudioprocess = function(e) {
       for (i = 0; i < 512; i++) {
-        l = e.outputBuffer.getChannelData(0)[i] = (l + .02 * (Math.random() * 2 * t - 1)) / 1.02;
+        l = e.outputBuffer.getChannelData(0)[i] = (l + .02 * (Math.random() * 2 - 1)) / 1.02;
       }
     };
 
@@ -100,7 +93,6 @@ setInterval(function() {
     img.src = 'data:image/jpeg;base64,' + btoa(arr.join(''));
     // DRAW IMAGE END
 
-    f = (f < .4) ? f*2 : (f>.1) ? f-.1 : .3;
-  }
-
-}, 100);
+    setTimeout(p, 80+Math.random()*200);
+}
+setTimeout(p, 0);
