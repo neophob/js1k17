@@ -34,6 +34,7 @@ REGPACK_OPT9="- --useES6 true --hash2DContext --contextVariableName 'c' --crushG
 REGPACK_OPTA="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 5 --crushLengthFactor 1 --crushCopiesFactor 0 --crushTiebreakerFactor 0"
 REGPACK_OPTB="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 16 --crushLengthFactor 8 --crushCopiesFactor 0 --crushTiebreakerFactor 0"
 REGPACK_OPTC="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 3 --crushLengthFactor 2 --crushCopiesFactor 1 --crushTiebreakerFactor 0"
+REGPACK_OPTD="- --useES6 true --hash2DContext --contextVariableName 'c' --crushGainFactor 64 --crushLengthFactor 8 --crushCopiesFactor 0"
 
 mkdir -p $OUT
 
@@ -65,6 +66,7 @@ BAB_PACK "$REGPACK_OPT9" 9&
 BAB_PACK "$REGPACK_OPTA" A&
 BAB_PACK "$REGPACK_OPTB" B&
 BAB_PACK "$REGPACK_OPTC" C&
+BAB_PACK "$REGPACK_OPTD" D&
 WAIT_FOR_BG_JOBS
 
 ls -alS $OUT/* | sort -k 5 -n

@@ -25,7 +25,7 @@ v.start();
 l = 1;
 
 
-function p() {
+(function p() {
     // GENERATE VIRTUAL IMAGE START
 
     //v is CANVAS
@@ -110,5 +110,4 @@ function p() {
 
     //on load takes up to 60ms to run the onload function
     setTimeout(p, 100+Math.random()*130);
-}
-setTimeout(p, 0);
+})()
