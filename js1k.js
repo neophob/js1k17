@@ -22,17 +22,17 @@ v.connect(m);
 v.start();
 
 // l : last volume setting
-//l = 1;
+l = 1;
 
 
-(p = (l=1) => {
+(p = () => {
     // GENERATE VIRTUAL IMAGE START
 
     //v is CANVAS
     v = document.createElement('canvas');
     v.width = a.width;
     v.height = 256;
-    let ofs = v.getContext('2d');
+    var ofs = v.getContext('2d');
     ofs.font = '160px arial';
     ofs.fillStyle = '#ccc';
 
