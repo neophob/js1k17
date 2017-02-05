@@ -44,7 +44,7 @@ l = 1;
     }
 
     g.gain.value = i;
-    m.gain.value = i/4;
+    m.gain.value = i/12;
 
     // GENERATE VIRTUAL IMAGE END
 
