@@ -39,7 +39,6 @@ function p() {
     if (i < .7) {
       ofs.fillText('🅽🅾 🆂🅸🅶🅽🅰🅻', 40, 200);
     } else {
-//      ofs.fillText(' 🅽🅾 🅼🅰🅶🅸🅲', 0, 200);
       ofs.fillText(i, 40, 200);
     }
 
@@ -50,7 +49,7 @@ function p() {
 
     n.onaudioprocess = function(e) {
       for (i = 0; i < 2048; i++) {
-        l = e.outputBuffer.getChannelData(0)[i] = (l + .02 * (Math.random() * 2 - 1)) / 1.02;
+        l = e.outputBuffer.getChannelData(0)[i] = (l + .02 * (Math.random()*2 - 1)) / 1.02;
       }
     };
 
@@ -80,13 +79,17 @@ function p() {
         c.fillStyle = '#'+['000', '222', '444', '666', '888', 'aaa', 'ccc'][i];
         c.fillRect(.143*i*a.width, a.height*.8, a.width, a.height);
       }
+
+      c.fillStyle = 'rgba(0,0,0,.4)';
+      c.fillRect(0, Math.random() * 500, a.width, Math.random() * 500);
+
       //DRAW BACKGROUND IMAGE END
       c.drawImage(this, 0, 100);
 
       // POST PROCESSING WHOLE IMAGE
 
       //FLIP OF RANDOM COLOR CHANNEL
-      ofs = (Math.random() * 8)|0;
+      ofs = (Math.random() * 16)|0;
       if (ofs < 3) {
         img = 16+4*((Math.random() * 48)|0);
   			v = c.getImageData(0, 0, a.width, a.height);
@@ -97,7 +100,7 @@ function p() {
       }
       //DRAW SCANLINES
       for (i = 0; i < a.height; i+=3) {
-        c.fillStyle = '#224';
+        //c.fillStyle = 'rgba(0,0,0,.4)';
   			c.fillRect(0, i, a.width, 1);
       }
     };
