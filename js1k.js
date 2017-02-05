@@ -12,12 +12,12 @@ l.connect(g);
 n = v.createScriptProcessor(2048, 1, 1);
 n.connect(l);
 
-go = v.createGain();
-go.connect(l);
+m = v.createGain();
+m.connect(l);
 
 v = v.createOscillator();
 v.frequency.value = 500; // value in hertz
-v.connect(go);
+v.connect(m);
 v.start();
 
 // l : last volume setting
@@ -36,15 +36,15 @@ function p() {
     ofs.fillStyle = '#ccc';
 
     var i = Math.random();
-    if (i < .05) {
-      ofs.fillText(' 𝟦 𝟪 𝟣𝟧 𝟣𝟨 𝟤𝟥 𝟦𝟤', 0, 200);
-    } else if (i < .6) {
-      ofs.fillText(' 🅽🅾 🆂🅸🅶🅽🅰🅻', 0, 200);
+    if (i < .7) {
+      ofs.fillText('🅽🅾 🆂🅸🅶🅽🅰🅻', 40, 200);
     } else {
-      ofs.fillText(' 🅽🅾 🅼🅰🅶🅸🅲', 0, 200);
+//      ofs.fillText(' 🅽🅾 🅼🅰🅶🅸🅲', 0, 200);
+      ofs.fillText(i, 40, 200);
     }
+
     g.gain.value =(i+l)/2;
-    go.gain.value = (i+l)/12;
+    m.gain.value = (i+l)/12;
 
     // GENERATE VIRTUAL IMAGE END
 
