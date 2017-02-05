@@ -107,6 +107,7 @@ function p() {
     img.src = 'data:image/jpeg;base64,' + btoa(arr.join(''));
     // DRAW IMAGE END
 
-    setTimeout(p, 80+Math.random()*150);
+    //on load takes up to60ms
+    setTimeout(p, 100+Math.random()*130);
 }
 setTimeout(p, 0);
