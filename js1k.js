@@ -22,10 +22,10 @@ v.connect(m);
 v.start();
 
 // l : last volume setting
-l = 1;
+//l = 1;
 
 
-(function p() {
+(p = (l=1) => {
     // GENERATE VIRTUAL IMAGE START
 
     //v is CANVAS
@@ -48,11 +48,11 @@ l = 1;
 
     // GENERATE VIRTUAL IMAGE END
 
-    n.onaudioprocess = function(e) {
+    n.onaudioprocess = (e => {
       for (i = 0; i < 2048; i++) {
         l = e.outputBuffer.getChannelData(0)[i] = (l + .02 * (Math.random()*2 - 1)) / 1.02;
       }
-    };
+    });
 
     // GLITCH IMAGE START
     //v variable is canvas
@@ -64,7 +64,7 @@ l = 1;
 
     // DRAW IMAGE START
     var img = new Image();
-    img.onload = function() {
+    img.onload = ()=> {
       //DRAW BACKGROUND IMAGE START - must by sync with glitch image to prevent flickering
       for (i = 0; i < 7; i++) {
         //white, yellow, cyan, green, magenta, red, blue
@@ -85,7 +85,7 @@ l = 1;
       c.fillRect(0, Math.random() * 500, a.width, Math.random() * 500);
 
       //DRAW BACKGROUND IMAGE END
-      c.drawImage(this, 0, 100);
+      c.drawImage(img, 0, 100);
 
       // POST PROCESSING WHOLE IMAGE
 
@@ -110,4 +110,4 @@ l = 1;
 
     //on load takes up to 60ms to run the onload function
     setTimeout(p, 100+Math.random()*130);
-})()
+})();
