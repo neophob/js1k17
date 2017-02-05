@@ -25,12 +25,12 @@ v.start();
 l = 1;
 
 
-(p = () => {
+(p = (w=a.width) => {
     // GENERATE VIRTUAL IMAGE START
 
     //v is CANVAS
     v = document.createElement('canvas');
-    v.width = a.width;
+    v.width = w;
     v.height = 256;
     var ofs = v.getContext('2d');
     ofs.font = '160px arial';
@@ -64,25 +64,25 @@ l = 1;
 
     // DRAW IMAGE START
     var img = new Image();
-    img.onload = ()=> {
+    img.onload = () => {
       //DRAW BACKGROUND IMAGE START - must by sync with glitch image to prevent flickering
       for (i = 0; i < 7; i++) {
         //white, yellow, cyan, green, magenta, red, blue
         c.fillStyle = '#'+['fff', 'ff0', '0ff', '0f0', 'f0f', 'f00', '00f'][i];
-        c.fillRect(.143*i*a.width, 0, a.width, a.height);
+        c.fillRect(.143*i*w, 0, w, a.height);
 
         //blue, black, magenta, black, cyan, black, white
         //OPTION: replace [i] with [~~(Math.random() * 7)];
         c.fillStyle = '#'+['00f', '000', 'f0f', '000', '0ff', '000', 'eee'][i];
-        c.fillRect(.143*i*a.width, a.height*.75, a.width, a.height);
+        c.fillRect(.143*i*w, a.height*.75, w, a.height);
 
         //greyscale
         c.fillStyle = '#'+['000', '222', '444', '666', '888', 'aaa', 'ccc'][i];
-        c.fillRect(.143*i*a.width, a.height*.8, a.width, a.height);
+        c.fillRect(.143*i*w, a.height*.8, w, a.height);
       }
 
       c.fillStyle = 'rgba(0,0,0,.4)';
-      c.fillRect(0, Math.random() * 500, a.width, Math.random() * 500);
+      c.fillRect(0, Math.random() * 500, w, Math.random() * 500);
 
       //DRAW BACKGROUND IMAGE END
       c.drawImage(img, 0, 100);
@@ -93,8 +93,8 @@ l = 1;
       ofs = (Math.random() * 16)|0;
       if (ofs < 3) {
         img = 16+4*((Math.random() * 48)|0);
-  			v = c.getImageData(0, 0, a.width, a.height);
-        for (i=a.width*a.height*4-ofs; i>3; i-=4) {
+  			v = c.getImageData(0, 0, w, a.height);
+        for (i=w*a.height*4-ofs; i>3; i-=4) {
           v.data[i] = v.data[i-img];
         }
         c.putImageData(v, 0, 0);
@@ -102,7 +102,7 @@ l = 1;
       //DRAW SCANLINES
       for (i = 0; i < a.height; i+=3) {
         //c.fillStyle = 'rgba(0,0,0,.4)';
-  			c.fillRect(0, i, a.width, 1);
+  			c.fillRect(0, i, w, 1);
       }
     };
     img.src = 'data:image/jpeg;base64,' + btoa(arr.join(''));
