@@ -43,14 +43,14 @@ l = 1;
       ofs.fillText(i, 40, 200);
     }
 
-    g.gain.value = i/2;
-    m.gain.value = i/8;
+    g.gain.value = i;
+    m.gain.value = i/4;
 
     // GENERATE VIRTUAL IMAGE END
 
     n.onaudioprocess = (e => {
       for (i = 0; i < 2048; i++) {
-        l = e.outputBuffer.getChannelData(0)[i] = (l + .02 * (Math.random()*2 - 1)) / 1.02;
+        l = e.outputBuffer.getChannelData(0)[i] = (l + .02 * Math.random()) / 1.02;
       }
     });
 
