@@ -32,7 +32,7 @@ v.start();
     v = document.createElement('canvas');
     v.width = a.width;
     v.height = 256;
-    var ofs = v.getContext('2d');
+    let ofs = v.getContext('2d');
     ofs.font = '160px arial';
     ofs.fillStyle = '#ccc';
 
