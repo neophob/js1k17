@@ -1,22 +1,5 @@
 #!/bin/bash
 
-WAIT_FOR_BG_JOBS() {
-  FAIL=0
-  for job in `jobs -p`
-  do
-      wait $job || let "FAIL+=1"
-  done
-
-  if [ "$FAIL" == "0" ];
-  then
-      echo "[JOBS LGTM] NO ERRORS DETECTED"
-  else
-      echo "[JOBS ERROR] FAILED JOBS DETECTED ($FAIL), EXIT NOW"
-      exit 1
-  fi
-}
-
-UGLIFY=./node_modules/.bin/uglifyjs
 BABILI=./node_modules/.bin/babili
 REGPACK=./node_modules/.bin/regpack
 OUT=./dist
@@ -43,16 +26,11 @@ BAB_PACK() {
   $BABILI js1k.js | $REGPACK $OPT > $OUT/js1k-babili-regpacked-$2.js
 }
 
-UGLIFY_PACK() {
-  $UGLIFY $UGLIFY_OPT js1k.js | $REGPACK $REGPACK_OPT1 > $OUT/js1k-uglify-regpacked.js
-}
-
 REGPACK_PACK() {
   $REGPACK js1k.js $REGPACK_OPT1 > $OUT/js1k-regpacked-1.js
 }
 
 echo "[MINIME] START"
-#UGLIFY_PACK&
 #REGPACK_PACK&
 BAB_PACK "$REGPACK_OPT1" 1&
 BAB_PACK "$REGPACK_OPT2" 2&
@@ -67,6 +45,7 @@ BAB_PACK "$REGPACK_OPTA" A&
 BAB_PACK "$REGPACK_OPTB" B&
 BAB_PACK "$REGPACK_OPTC" C&
 BAB_PACK "$REGPACK_OPTD" D&
-WAIT_FOR_BG_JOBS
+echo "[MINIME] WAIT"
+wait
 
 ls -alS $OUT/* | sort -k 5 -n

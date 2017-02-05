@@ -37,7 +37,7 @@ l = 1;
     ofs.fillStyle = '#ccc';
 
     var i = Math.random();
-    if (i < .7) {
+    if (i < .8) {
       ofs.fillText('🅽🅾 🆂🅸🅶🅽🅰🅻', 40, 200);
     } else {
       ofs.fillText(i, 40, 200);
@@ -100,7 +100,7 @@ l = 1;
         c.putImageData(v, 0, 0);
       }
       //DRAW SCANLINES
-      for (i = 0; i < a.height; i+=3) {
+      for (i = 0; i < a.height; i+=4) {
         //c.fillStyle = 'rgba(0,0,0,.4)';
   			c.fillRect(0, i, a.width, 1);
       }
@@ -109,5 +109,5 @@ l = 1;
     // DRAW IMAGE END
 
     //on load takes up to 60ms to run the onload function
-    setTimeout(p, 100+Math.random()*130);
+    setTimeout(p, 100+Math.random()*200);
 })();
