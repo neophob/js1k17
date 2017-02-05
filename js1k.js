@@ -16,7 +16,7 @@ m = v.createGain();
 m.connect(l);
 
 v = v.createOscillator();
-v.frequency.value = 500; // value in hertz
+//v.frequency.value = 500; // value in hertz
 v.connect(m);
 v.start();
 
@@ -44,7 +44,7 @@ function p() {
     }
 
     g.gain.value =(i+l)/2;
-    m.gain.value = (i+l)/12;
+    m.gain.value = (i+l)/10;
 
     // GENERATE VIRTUAL IMAGE END
 
@@ -88,7 +88,7 @@ function p() {
       //FLIP OF RANDOM COLOR CHANNEL
       ofs = (Math.random() * 8)|0;
       if (ofs < 3) {
-        img = 4*((Math.random() * 64)|0);
+        img = 16+4*((Math.random() * 48)|0);
   			v = c.getImageData(0, 0, a.width, a.height);
         for (i=a.width*a.height*4-ofs; i>3; i-=4) {
           v.data[i] = v.data[i-img];
