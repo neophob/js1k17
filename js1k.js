@@ -1,7 +1,7 @@
 //v temporary variable
 v = new AudioContext();
 
-//g access to gain control
+//g access to master gain control
 g = v.createGain();
 g.connect(v.destination);
 
@@ -12,6 +12,7 @@ l.connect(g);
 n = v.createScriptProcessor(2048, 1, 1);
 n.connect(l);
 
+//m gain of the oscillator
 m = v.createGain();
 m.connect(l);
 
@@ -42,8 +43,8 @@ function p() {
       ofs.fillText(i, 40, 200);
     }
 
-    g.gain.value =(i+l)/2;
-    m.gain.value = (i+l)/10;
+    g.gain.value = i/2;
+    m.gain.value = i/8;
 
     // GENERATE VIRTUAL IMAGE END
 
@@ -107,7 +108,7 @@ function p() {
     img.src = 'data:image/jpeg;base64,' + btoa(arr.join(''));
     // DRAW IMAGE END
 
-    //on load takes up to60ms
+    //on load takes up to 60ms to run the onload function
     setTimeout(p, 100+Math.random()*130);
 }
 setTimeout(p, 0);
